@@ -4,7 +4,7 @@ import data from './data.js';
 const app = express();
 
 app.get('/api/products', (req, res) => {
-  res.send(data.products);
+  res.status(200).send(data.products);
 });
 
 const prot = process.env.PORT || 5000;
