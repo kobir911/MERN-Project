@@ -11,10 +11,16 @@ body {
   min-height: 100vh;
 }
 
-
 main {
-  flex:1;
+  flex: 1;
 }
+
+.btn-primary {
+  background-color: #f0c040 !important;
+  color: #000000 !important;
+  font-weight: bolder !important;
+}
+
 .products {
   display: flex;
   flex-wrap: wrap;
@@ -31,4 +37,9 @@ main {
 }
 .product-info {
   padding: 1rem;
+}
+
+/* color of the star*/
+.rating span {
+  color: #ffc000;
 }
