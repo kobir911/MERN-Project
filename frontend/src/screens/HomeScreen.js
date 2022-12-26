@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { Helmet } from 'react-helmet-async';
 // import data from '../data';
 import React, { useEffect, useReducer } from 'react';
 import Product from './../components/Product';
@@ -41,6 +41,9 @@ export default function HomeScreen() {
 
   return (
     <div>
+      <Helmet>
+        <title>The Clothing Store</title>
+      </Helmet>
       <h1>Featured Products</h1>
       <div className="products">
         {loading ? (

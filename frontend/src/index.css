@@ -7,18 +7,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+main {
+  flex: 1;
+}
 .site-container {
   min-height: 100vh;
 }
 
-main {
-  flex: 1;
-}
 
 .btn-primary {
-  background-color: #f0c040 !important;
-  color: #000000 !important;
-  font-weight: bolder !important;
+  background-color: #f0c040  ;
+  color: #000000  ;
+  font-weight: bolder  ;
 }
 
 .products {
@@ -42,4 +42,9 @@ main {
 /* color of the star*/
 .rating span {
   color: #ffc000;
+}
+
+
+.img-large {
+  max-width: 100%;
 }
