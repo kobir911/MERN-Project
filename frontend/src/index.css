@@ -48,3 +48,9 @@ main {
 .img-large {
   max-width: 100%;
 }
+
+
+/*img from cart screen */
+.img-thumbnail {
+  height: 80px;
+}
