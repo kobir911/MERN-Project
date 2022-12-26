@@ -8,7 +8,8 @@ import Badge from 'react-bootstrap/Badge';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { useParams } from 'react-router-dom';
 import Rating from '../components/Rating';
-import  Button  from 'react-bootstrap/Button';
+import { toast } from 'react-toastify';
+import Button from 'react-bootstrap/Button';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { getError } from '../utils';
@@ -51,15 +52,23 @@ export default function ProductScreen() {
     fetchData();
   }, [slug]);
 
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { cart } = state;
+  const addToCartHandler = async () => {
+    const existItem = cart.cartItems.find((x) => x._id === product._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    const {data} = await axios.get(`/api/products/${product._id}`)
+    if (data.countInStock < quantity) {
+     
+      toast.error('Sorry. Product is out of stock');
+      return;
+    }
 
-   const { state, dispatch: ctxDispatch } = useContext(Store);
-
-   const addToCartHandler = () => {
-     ctxDispatch({
-       type: 'CART_ADD_ITEM',
-       payload: { ...product, quantity: 1 },
-     });
-   };
+    ctxDispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...product, quantity },
+    });
+  };
 
   return loading ? (
     <LoadingBox />
