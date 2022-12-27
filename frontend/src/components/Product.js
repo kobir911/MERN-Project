@@ -29,7 +29,7 @@ export default function Product(props) {
       type: 'CART_ADD_ITEM',
       payload: { ...item, quantity },
     });
-    navigate('/car');
+    navigate('/cart');
   };
 
   return (

@@ -105,9 +105,17 @@
     3. add signIn button     
 
 17. Connect To MongoDB Database
-    1. create atlas monogodb database
+    1. create atlas mongodb database
     2. install local mongodb database
     3. npm install mongoose
     4. connect to mongodb database
+
+
+18. Seed Sample Products
+
+    1. create Product model
+    2. create seed route
+    3. use route in server.js
+    4. seed sample product    
 
     
