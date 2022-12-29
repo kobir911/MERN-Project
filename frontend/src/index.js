@@ -14,7 +14,7 @@ root.render(
   <React.StrictMode>
     <StoreProvider>
       <HelmetProvider>
-        <ToastContainer/>
+        <ToastContainer position="bottom-center" limit={1} />
         <App />
       </HelmetProvider>
     </StoreProvider>
