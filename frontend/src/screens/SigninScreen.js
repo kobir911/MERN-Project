@@ -9,6 +9,7 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getError } from '../utils';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 export default function SigninScreen() {
   const navigate = useNavigate();
@@ -49,7 +50,8 @@ export default function SigninScreen() {
       <Helmet>
         <title>Sign In</title>
       </Helmet>
-      <h1 className="my-3">Sign In</h1>
+      <CheckoutSteps step1 ></CheckoutSteps>
+      <h1 className="my-5">Sign In</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email</Form.Label>
