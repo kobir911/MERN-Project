@@ -23,6 +23,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import { toast } from 'react-toastify';
 import { getError } from './utils';
 import SearchBox from './components/SearchBox';
+import SearchScreen from './screens/SearchScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -127,12 +128,15 @@ function App() {
             </Nav.Item>
             {categories.map((category) => (
               <Nav.Item key={category}>
-                <Link
-                  to={`/search?category=${category}`}
+                <LinkContainer
+                  to={{
+                    pathname: '/search',
+                    search: `?category=${category}`,
+                  }}
                   onClick={() => setSidebarIsOpen(false)}
                 >
-                  {category}
-                </Link>
+                  <Nav.Link>{category}</Nav.Link>
+                </LinkContainer>
               </Nav.Item>
             ))}
           </Nav>
@@ -142,6 +146,7 @@ function App() {
             <Routes>
               <Route path="/product/:slug" element={<ProductScreen />} />
               <Route path="/cart" element={<CartScreen />} />
+              <Route path="/search" element={<SearchScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
               <Route path="/signup" element={<SignupScreen />} />
               <Route path="/profile" element={<ProfileScreen />} />
