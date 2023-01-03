@@ -203,6 +203,8 @@
     6. Set database connection in heroku env variables
     7. Commit and push  
 
+31. Render Fix MONGO_URL    
+
 32. Add Sidebar and Search Box
 
     1. add sidebar
