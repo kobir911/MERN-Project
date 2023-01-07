@@ -7,7 +7,7 @@ import MessageBox from '../components/MessageBox';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import { getError } from '../utils';
 
 const reducer = (state, action) => {
@@ -36,10 +36,11 @@ const reducer = (state, action) => {
 };
 
 export default function ProductListScreen() {
-  const [{ loading, error, products, pages , loadingCreate }, dispatch] = useReducer(reducer, {
-    loading: true,
-    error: '',
-  });
+  const [{ loading, error, products, pages, loadingCreate }, dispatch] =
+    useReducer(reducer, {
+      loading: true,
+      error: '',
+    });
 
   const navigate = useNavigate();
 
@@ -98,7 +99,7 @@ export default function ProductListScreen() {
         </Col>
       </Row>
 
-    {loadingCreate && <LoadingBox></LoadingBox>}
+      {loadingCreate && <LoadingBox></LoadingBox>}
 
       {loading ? (
         <LoadingBox></LoadingBox>
@@ -114,6 +115,7 @@ export default function ProductListScreen() {
                 <th>PRICE</th>
                 <th>CATEGORY</th>
                 <th>BRAND</th>
+                <th>ACTIONS</th>
               </tr>
             </thead>
             <tbody>
@@ -124,6 +126,15 @@ export default function ProductListScreen() {
                   <td>{product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
+                  <td>
+                    <Button
+                      type="button"
+                      variant="light"
+                      onClick={() => navigate(`/admin/product/${product._id}`)}
+                    >
+                      Edit
+                    </Button>
+                  </td>
                 </tr>
               ))}
             </tbody>
