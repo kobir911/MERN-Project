@@ -6,6 +6,17 @@ import User from '../models/userModel.js';
 import { isAuth, isAdmin } from '../utils.js';
 
 const orderRouter = express.Router();
+
+orderRouter.get(
+  '/',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const orders = await Order.find().populate('user' , 'name');
+    res.send(orders);
+  })
+);
+
 orderRouter.post(
   '/',
   isAuth,
@@ -55,16 +66,17 @@ orderRouter.get(
           orders: { $sum: 1 },
           sales: { $sum: '$totalPrice' },
         },
-      }, { $sort: { _id: 1 } },
+      },
+      { $sort: { _id: 1 } },
     ]);
     const productCategories = await Product.aggregate([
       {
         $group: {
           _id: '$category',
           count: { $sum: 1 },
-        }
-      }
-    ])
+        },
+      },
+    ]);
     res.send({ users, orders, dailyOrders, productCategories });
   })
 );
