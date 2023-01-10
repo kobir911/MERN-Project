@@ -104,3 +104,10 @@ main {
 .text-bold { 
   font-weight: bold;
 }
+
+
+/* FROM PRODUCT SCREEN FOR IMAGES     */
+
+button.thumbnail {
+  padding: 0;
+}

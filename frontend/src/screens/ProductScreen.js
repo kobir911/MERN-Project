@@ -26,7 +26,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 const reducer = (state, action) => {
   switch (action.type) {
     case 'REFRESH_PRODUCT':
-      return { ...state , product: action.payload }
+      return { ...state, product: action.payload };
     case 'CREATE_REQUEST':
       return { ...state, loadingCreateReview: true };
     case 'CREATE_SUCCESS':
@@ -49,6 +49,7 @@ export default function ProductScreen() {
 
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
+  const [selectedImage, setSelectedImage] = useState('');
 
   const navigate = useNavigate();
   const params = useParams();
@@ -121,6 +122,8 @@ export default function ProductScreen() {
     }
   };
 
+  const deletedReviewHandler = async (review) => {}
+
   return loading ? (
     <LoadingBox />
   ) : error ? (
@@ -130,7 +133,7 @@ export default function ProductScreen() {
       <Row>
         <Col md={6}>
           <img
-            src={product.image}
+            src={selectedImage || product.image}
             alt={product.name}
             className="img-large"
           ></img>
@@ -150,6 +153,24 @@ export default function ProductScreen() {
               ></Rating>
             </ListGroup.Item>
             <ListGroup.Item>Price : ${product.price}</ListGroup.Item>
+            <ListGroup.Item>
+              <Row xs={1} md={2} className="g-2">
+                {[product.image, ...product.images].map((x) => (
+                  <Col key={x}>
+                    <Card>
+                      <Button
+                        className="thumbnail"
+                        type="button"
+                        variant="light"
+                        onClick={() => setSelectedImage(x)}
+                      >
+                        <Card.Img variant="top" src={x} alt="product" />
+                      </Button>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </ListGroup.Item>
             <ListGroup.Item>
               Description: <p>{product.description}</p>
             </ListGroup.Item>
@@ -205,6 +226,7 @@ export default function ProductScreen() {
                   <Rating rating={review.rating} caption=" "></Rating>
                   <p>{review.createdAt.substring(0, 10)}</p>
                   <p>{review.comment}</p>
+                  <Button type="button" onClick={() => deletedReviewHandler(review)}>Delete</Button>
                 </ListGroup.Item>
               ))}
             </ListGroup>
@@ -247,7 +269,11 @@ export default function ProductScreen() {
                 </Form>
               ) : (
                 <MessageBox>
-                  Please <Link to={`/signin?redirect=/product/${product.slug}`}>Sign In</Link>to write a review
+                  Please{' '}
+                  <Link to={`/signin?redirect=/product/${product.slug}`}>
+                    Sign In
+                  </Link>
+                  to write a review
                 </MessageBox>
               )}
             </div>
