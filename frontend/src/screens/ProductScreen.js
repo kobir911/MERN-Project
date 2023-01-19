@@ -122,8 +122,6 @@ export default function ProductScreen() {
     }
   };
 
-  const deletedReviewHandler = async (review) => {}
-
   return loading ? (
     <LoadingBox />
   ) : error ? (
@@ -226,7 +224,6 @@ export default function ProductScreen() {
                   <Rating rating={review.rating} caption=" "></Rating>
                   <p>{review.createdAt.substring(0, 10)}</p>
                   <p>{review.comment}</p>
-                  <Button type="button" onClick={() => deletedReviewHandler(review)}>Delete</Button>
                 </ListGroup.Item>
               ))}
             </ListGroup>
@@ -272,7 +269,7 @@ export default function ProductScreen() {
                   Please{' '}
                   <Link to={`/signin?redirect=/product/${product.slug}`}>
                     Sign In
-                  </Link>
+                  </Link>{' '}
                   to write a review
                 </MessageBox>
               )}

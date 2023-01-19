@@ -37,10 +37,11 @@ export default function OrderListScreen() {
   const navigate = useNavigate();
   const { state } = useContext(Store);
   const { userInfo } = state;
-  const [{ loading, error, orders , loadingDelete , successDelete }, dispatch] = useReducer(reducer, {
-    loading: true,
-    error: '',
-  });
+  const [{ loading, error, orders, loadingDelete, successDelete }, dispatch] =
+    useReducer(reducer, {
+      loading: true,
+      error: '',
+    });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,16 +57,13 @@ export default function OrderListScreen() {
           payload: getError(err),
         });
       }
-      
     };
     if (successDelete) {
-      dispatch({ type: 'DELETE_RESET'})
-    } else { 
-
+      dispatch({ type: 'DELETE_RESET' });
+    } else {
       fetchData();
     }
-
-  }, [userInfo , successDelete]);
+  }, [userInfo, successDelete]);
 
   const deleteHandler = async (order) => {
     if (window.confirm('Are you sure to delete?')) {

@@ -21,7 +21,8 @@ const data = {
       name: 'Nike Slim shirt',
       slug: 'nike-slim-shirt',
       category: 'Shirts',
-      image: '/images/p1.jpg', // 679px × 829px
+      image:
+        'https://res.cloudinary.com/marn-chlothing-store/image/upload/v1673385240/vbdv5wwglvqspbzzdwtr.jpg', // 679px × 829px
       price: 120,
       countInStock: 10,
       brand: 'Nike',
@@ -34,7 +35,8 @@ const data = {
       name: 'Adidas Fit Shirt',
       slug: 'adidas-fit-shirt',
       category: 'Shirts',
-      image: '/images/p2.jpg',
+      image:
+        'https://res.cloudinary.com/marn-chlothing-store/image/upload/v1673993239/p2_c9gzbi.jpg',
       price: 250,
       countInStock: 20,
       brand: 'Adidas',
@@ -47,7 +49,8 @@ const data = {
       name: 'Nike Slim Pant',
       slug: 'nike-slim-pant',
       category: 'Pants',
-      image: '/images/p3.jpg',
+      image:
+        'https://res.cloudinary.com/marn-chlothing-store/image/upload/v1673993239/p4_juimsq.jpg',
       price: 25,
       countInStock: 15,
       brand: 'Nike',
@@ -60,7 +63,8 @@ const data = {
       name: 'Adidas Fit Pant',
       slug: 'adidas-fit-pant',
       category: 'Pants',
-      image: '/images/p4.jpg',
+      image:
+        'https://res.cloudinary.com/marn-chlothing-store/image/upload/v1673124313/x1kmxveixq1d0gdw03df.jpg',
       price: 65,
       countInStock: 0,
       brand: 'Puma',
