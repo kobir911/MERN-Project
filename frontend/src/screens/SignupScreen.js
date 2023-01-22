@@ -74,6 +74,7 @@ export default function SignupScreen() {
           <Form.Control
             type="email"
             required
+            
             onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>

@@ -1,7 +1,9 @@
 import axios from 'axios';
+import React, { Suspense, useContext, useEffect, useState } from 'react';
+
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import HomeScreen from './screens/HomeScreen';
-import ProductScreen from './screens/ProductScreen';
+// import ProductScreen from './screens/ProductScreen';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -9,29 +11,56 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useContext, useEffect, useState } from 'react';
 import { Store } from './Store';
-import CartScreen from './screens/CartScreen';
+// import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
-import ShippingAddressScreen from './screens/ShippingAddressScreen';
+// import ShippingAddressScreen from './screens/ShippingAddressScreen';
 import SignupScreen from './screens/SignupScreen';
-import PaymentMethodScreen from './screens/PaymentMethodScreen';
-import PlaceOrderScreen from './screens/PlaceOrderScreen';
-import OrderScreen from './screens/OrderScreen';
-import OrderHistoryScreen from './screens/OrderHistoryScreen';
-import ProfileScreen from './screens/ProfileScreen';
+// import PaymentMethodScreen from './screens/PaymentMethodScreen';
+// import PlaceOrderScreen from './screens/PlaceOrderScreen';
+// import OrderScreen from './screens/OrderScreen';
+// import OrderHistoryScreen from './screens/OrderHistoryScreen';
+// import ProfileScreen from './screens/ProfileScreen';
 import { toast } from 'react-toastify';
 import { getError } from './utils';
 import SearchBox from './components/SearchBox';
 import SearchScreen from './screens/SearchScreen';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
-import DashboardScreen from './screens/DashboardScreen';
-import ProductListScreen from './screens/ProductListScreen';
-import ProductEditScreen from './screens/ProductEditScreen';
-import OrderListScreen from './screens/OrderListScreen';
-import UserListScreen from './screens/UserListScreen';
-import UserEditScreen from './screens/UserEditScreen';
+import LoadingBox from './components/LoadingBox';
+// import DashboardScreen from './screens/DashboardScreen';
+// import ProductListScreen from './screens/ProductListScreen';
+// import ProductEditScreen from './screens/ProductEditScreen';
+// import OrderListScreen from './screens/OrderListScreen';
+// import UserListScreen from './screens/UserListScreen';
+// import UserEditScreen from './screens/UserEditScreen';
+
+//!splitting code -To download less code that is not required right from the start.first loading faster
+const ProfileScreen = React.lazy(() => import('./screens/ProfileScreen'));
+const UserEditScreen = React.lazy(() => import('./screens/UserEditScreen'));
+const UserListScreen = React.lazy(() => import('./screens/UserListScreen'));
+const OrderListScreen = React.lazy(() => import('./screens/OrderListScreen'));
+const ProductEditScreen = React.lazy(() =>
+  import('./screens/ProductEditScreen')
+);
+const ProductListScreen = React.lazy(() =>
+  import('./screens/ProductListScreen')
+);
+const DashboardScreen = React.lazy(() => import('./screens/DashboardScreen'));
+const ProductScreen = React.lazy(() => import('./screens/ProductScreen'));
+
+const ShippingAddressScreen = React.lazy(() =>
+  import('./screens/ShippingAddressScreen')
+);
+const OrderHistoryScreen = React.lazy(() =>
+  import('./screens/OrderHistoryScreen')
+);
+const OrderScreen = React.lazy(() => import('./screens/OrderScreen'));
+const CartScreen = React.lazy(() => import('./screens/CartScreen'));
+const PlaceOrderScreen = React.lazy(() => import('./screens/PlaceOrderScreen'));
+const PaymentMethodScreen = React.lazy(() =>
+  import('./screens/PaymentMethodScreen')
+);
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -165,64 +194,71 @@ function App() {
         </div>
         <main>
           <Container className="mt-3">
-            <Routes>
-              <Route path="/product/:slug" element={<ProductScreen />} />
-              <Route path="/cart" element={<CartScreen />} />
-              <Route path="/search" element={<SearchScreen />} />
-              <Route path="/signin" element={<SigninScreen />} />
-              <Route path="/signup" element={<SignupScreen />} />
-              <Route
-                path="/profile"
-                element={
-                  <ProtectedRoute>
-                    <ProfileScreen />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="/placeorder" element={<PlaceOrderScreen />} />
-              <Route
-                path="/order/:id"
-                element={
-                  <ProtectedRoute>
-                    <OrderScreen />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="/shipping" element={<ShippingAddressScreen />} />
-              <Route path="/payment" element={<PaymentMethodScreen />} />
-              <Route
-                path="/orderhistory"
-                element={
-                  <ProtectedRoute>
-                    <OrderHistoryScreen />
-                  </ProtectedRoute>
-                }
-              />
-              {/*Admin Routes */}
-              <Route
-                path="/admin/dashboard"
-                element={
-                  <AdminRoute>
-                    <DashboardScreen />
-                  </AdminRoute>
-                }
-              ></Route>
-              <Route
-                path="/admin/orders"
-                element={
-                  <AdminRoute>
-                    <OrderListScreen />
-                  </AdminRoute>
-                }
-              ></Route>
-              <Route
-                path="/admin/users"
-                element={
-                  <AdminRoute>
-                    <UserListScreen />
-                  </AdminRoute>
-                }
-              ></Route>
+            <Suspense
+              fallback={
+                <div className="container container-center">
+                  <LoadingBox></LoadingBox>
+                </div>
+              }
+            >
+              <Routes>
+                <Route path="/product/:slug" element={<ProductScreen />} />
+                <Route path="/cart" element={<CartScreen />} />
+                <Route path="/search" element={<SearchScreen />} />
+                <Route path="/signin" element={<SigninScreen />} />
+                <Route path="/signup" element={<SignupScreen />} />
+                <Route
+                  path="/profile"
+                  element={
+                    <ProtectedRoute>
+                      <ProfileScreen />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="/placeorder" element={<PlaceOrderScreen />} />
+                <Route
+                  path="/order/:id"
+                  element={
+                    <ProtectedRoute>
+                      <OrderScreen />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="/shipping" element={<ShippingAddressScreen />} />
+                <Route path="/payment" element={<PaymentMethodScreen />} />
+                <Route
+                  path="/orderhistory"
+                  element={
+                    <ProtectedRoute>
+                      <OrderHistoryScreen />
+                    </ProtectedRoute>
+                  }
+                />
+                {/*Admin Routes */}
+                <Route
+                  path="/admin/dashboard"
+                  element={
+                    <AdminRoute>
+                      <DashboardScreen />
+                    </AdminRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/admin/orders"
+                  element={
+                    <AdminRoute>
+                      <OrderListScreen />
+                    </AdminRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/admin/users"
+                  element={
+                    <AdminRoute>
+                      <UserListScreen />
+                    </AdminRoute>
+                  }
+                ></Route>
                 <Route
                   path="/admin/products"
                   element={
@@ -231,24 +267,25 @@ function App() {
                     </AdminRoute>
                   }
                 ></Route>
-              <Route
-                path="/admin/product/:id"
-                element={
-                  <AdminRoute>
-                    <ProductEditScreen />
-                  </AdminRoute>
-                }
-              ></Route>
-              <Route
-                path="/admin/user/:id"
-                element={
-                  <AdminRoute>
-                    <UserEditScreen />
-                  </AdminRoute>
-                }
-              ></Route>
-              <Route path="/" element={<HomeScreen />} />
-            </Routes>
+                <Route
+                  path="/admin/product/:id"
+                  element={
+                    <AdminRoute>
+                      <ProductEditScreen />
+                    </AdminRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/admin/user/:id"
+                  element={
+                    <AdminRoute>
+                      <UserEditScreen />
+                    </AdminRoute>
+                  }
+                ></Route>
+                <Route path="/" element={<HomeScreen />} />
+              </Routes>
+            </Suspense>
           </Container>
         </main>
         <footer>

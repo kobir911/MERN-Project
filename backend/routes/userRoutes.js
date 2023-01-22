@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import expressAsyncHandler from 'express-async-handler';
-import User from '../models/userModel.js';
+import User ,{ validateUser }from '../models/userModel.js';
 import { generateToken, isAdmin, isAuth } from '../utils.js';
 
 const userRouter = express.Router();
@@ -92,7 +92,14 @@ userRouter.post(
 userRouter.post(
   '/signup',
   expressAsyncHandler(async (req, res) => {
-    const newUser = new User({
+
+    const { error } = validateUser(req.body);
+    if (error) return res.status(400).send({ message: 'must include "@" and "." '})
+
+    const newUser = await User.findOne({ email: req.body.email })
+    if (newUser) return res.status(400).send({ message: 'This email already exists'})
+
+     newUser = new User({
       name: req.body.name,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password),
