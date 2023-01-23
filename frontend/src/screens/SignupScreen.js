@@ -18,6 +18,7 @@ export default function SignupScreen() {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [tel, setTel] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -36,6 +37,7 @@ export default function SignupScreen() {
       const { data } = await axios.post('/api/users/signup', {
         name,
         email,
+        tel,
         password,
       });
 
@@ -74,8 +76,15 @@ export default function SignupScreen() {
           <Form.Control
             type="email"
             required
-            
             onChange={(e) => setEmail(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="tel">
+          <Form.Label>Tel</Form.Label>
+          <Form.Control
+            type="tel"
+            required
+            onChange={(e) => setTel(e.target.value)}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">

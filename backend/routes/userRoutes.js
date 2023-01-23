@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import expressAsyncHandler from 'express-async-handler';
-import User ,{ validateUser }from '../models/userModel.js';
+import User, { validateUser } from '../models/userModel.js';
 import { generateToken, isAdmin, isAuth } from '../utils.js';
 
 const userRouter = express.Router();
@@ -92,16 +92,19 @@ userRouter.post(
 userRouter.post(
   '/signup',
   expressAsyncHandler(async (req, res) => {
-
     const { error } = validateUser(req.body);
-    if (error) return res.status(400).send({ message: 'must include "@" and "." '})
+    if (error)
+   
+      return res.status(400).send({ message: 'check for valid email and tel' });
 
-    const newUser = await User.findOne({ email: req.body.email })
-    if (newUser) return res.status(400).send({ message: 'This email already exists'})
+    let newUser = await User.findOne({ email: req.body.email });
+    if (newUser)
+      return res.status(400).send({ message: 'This email already exists' });
 
-     newUser = new User({
+    newUser = new User({
       name: req.body.name,
       email: req.body.email,
+      tel: req.body.tel,
       password: bcrypt.hashSync(req.body.password),
     });
     const user = await newUser.save();
@@ -109,6 +112,7 @@ userRouter.post(
       _id: user._id,
       name: user.name,
       email: user.email,
+      tel: user.tel,
       isAdmin: user.isAdmin,
       token: generateToken(user),
     });
@@ -124,6 +128,7 @@ userRouter.put(
     if (user) {
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
+      user.tel = req.body.tel || user.tel;
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 8);
       }
@@ -132,6 +137,7 @@ userRouter.put(
         _id: updatedUser._id,
         name: updatedUser.name,
         email: updatedUser.email,
+        tel: updatedUser.tel,
         isAdmin: updatedUser.isAdmin,
         token: generateToken(updatedUser),
       });

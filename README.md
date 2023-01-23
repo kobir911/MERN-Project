@@ -312,4 +312,10 @@
     2. get images in edit screen
     3. show images in product screen 
 
-50. Fixe url images       
+50. Fix url images  
+
+51. Fix Project add Tel 
+   
+    1. add tel input
+    2. npm install Joi
+    3. validate tel whit regex by joi

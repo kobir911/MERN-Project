@@ -28,6 +28,7 @@ import SearchScreen from './screens/SearchScreen';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 import LoadingBox from './components/LoadingBox';
+import Footer from './components/footer/Footer';
 // import DashboardScreen from './screens/DashboardScreen';
 // import ProductListScreen from './screens/ProductListScreen';
 // import ProductEditScreen from './screens/ProductEditScreen';
@@ -289,7 +290,7 @@ function App() {
           </Container>
         </main>
         <footer>
-          <div className="text-center">All rights reserved to Kobi Rozin</div>
+          <Footer></Footer>
         </footer>
       </div>
     </BrowserRouter>

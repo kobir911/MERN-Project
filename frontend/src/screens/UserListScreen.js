@@ -82,9 +82,9 @@ export default function UserListScreen() {
   return (
     <div>
       <Helmet>
-        <title>Users</title>
+        <title>Users List</title>
       </Helmet>
-      <h1>Users</h1>
+      <h1>Users List</h1>
       {loadingDelete && <LoadingBox></LoadingBox>}
       {loading ? (
         <LoadingBox></LoadingBox>
@@ -96,6 +96,7 @@ export default function UserListScreen() {
             <tr>
               <th>ID</th>
               <th>NAME</th>
+              <th>TEL</th>
               <th>EMAIL</th>
               <th>IS ADMIN</th>
               <th>ACTIONS</th>
@@ -106,6 +107,7 @@ export default function UserListScreen() {
               <tr key={user._id}>
                 <td>{user._id}</td>
                 <td>{user.name}</td>
+                <td>{user.tel}</td>
                 <td>{user.email}</td>
                 <td>{user.isAdmin ? 'YES' : 'NO'}</td>
                 <td>
